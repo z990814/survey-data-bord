@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<title>PolygonBackground</title>
+	<style>
+		body {
+			margin: 0;
+			padding: 0;
+			overflow: hidden;
+			background-color: #000;
+		}
+
+		#container {
+			position: absolute;
+			height: 100%;
+			width: 100%;
+			background-color: #000;
+		}
+	</style>
+	<script src="js/jquery.js"></script>
+	<script src="js/vector.js"></script>
+	<script>
+		$(function () {
+			// 初始化 传入dom id
+			var victor = new Victor("container", "output");
+			var theme = [
+				["#00000", "#ff0000"]
+			]
+			$(".color li").each(function (index, val) {
+				var color = theme[index];
+				$(this).mouseover(function () {
+					victor(color).set();
+				})
+			});
+		});
+	</script>
+</head>
+
+<body>
+	<div id="container">
+		<div id="output"></div>
+	</div>
+
+	<!-- <ul class="color">
+		<li></li>
+		<li></li>
+		<li></li>
+		<li></li>
+	</ul> -->
+</body>
+
+</html>
