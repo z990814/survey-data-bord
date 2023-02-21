@@ -22,8 +22,8 @@
         </div>
         <div class="head-tit">
           <dv-decoration-5 class="dv-tit-top" :color="dataVColor" />
-          <!--问卷切换-->
-          <el-select
+
+          <!-- <el-select
             v-model="currentProjectValue"
             class="dv-tit-name"
             :popper-append-to-body="false"
@@ -35,7 +35,7 @@
               :value="item.value"
             >
             </el-option>
-          </el-select>
+          </el-select> -->
         </div>
         <div class="head-right">
           <div class="flex">
@@ -47,14 +47,42 @@
           <dv-decoration-8 class="dv-right" :color="dataVColor" />
         </div>
       </div>
+      <!--内容-->
+      <div class="body-div">
+        <!--左边图表-->
+        <div class="left-charts">
+          <dv-border-box-10 :color="dataVColor" class="left-1">
+            <EducationChart ref="LineChart" :dataVColor="dataVColor" />
+          </dv-border-box-10>
+          <dv-border-box-10 :color="dataVColor" class="left-1">
+            <EducationChart ref="LineChart" :dataVColor="dataVColor" />
+          </dv-border-box-10>
+        </div>
+        <!--中部地图-->
+        <div class="middle-map">
+          <MapChart></MapChart>
+        </div>
+        <!--右边图表-->
+        <div class="right-charts">
+          <dv-border-box-10 :color="dataVColor" class="right-2">
+            <EducationChart ref="LineChart" :dataVColor="dataVColor" />
+          </dv-border-box-10>
+          <dv-border-box-10 :color="dataVColor" class="right-2">
+            <AgeChart ref="LineChart" :dataVColor="dataVColor" />
+          </dv-border-box-10>
+        </div>
+      </div>
     </dv-border-box-11>
   </div>
 </template>
 
 <script>
+import EducationChart from "../components/EducationChart.vue";
+import AgeChart from "../components/AgeChart.vue";
+import MapChart from "../components/MapChart.vue";
 export default {
   name: "DataVisualization",
-  components: {},
+  components: { EducationChart, AgeChart, MapChart },
   data() {
     return {
       mobileDiv: true, //手机遮罩
@@ -83,6 +111,7 @@ export default {
       currentProject: {
         value: "",
         label: "",
+        histData: [],
       },
     };
   },
@@ -199,6 +228,31 @@ iframe {
   width: 100%;
   height: 30px;
   margin-top: 10px;
+}
+.body-div {
+  overflow: auto;
+  width: 98%;
+  height: 80%;
+  margin: auto;
+  display: flex;
+}
+.left-charts,
+.right-charts {
+  width: 25vw;
+  height: 100%;
+  margin: auto;
+}
+.middle-map {
+  margin: auto;
+  width: 45vw;
+  height: 100%;
+  border: #279b81 solid 2px;
+}
+.left-1,
+.right-2 {
+  height: 48%;
+  width: 100%;
+  margin: 3% auto;
 }
 </style>
 <style scoped>
