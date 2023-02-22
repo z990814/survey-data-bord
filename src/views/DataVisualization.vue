@@ -8,6 +8,7 @@
       class="dataVisualization-con"
       :title="dataVisualizationTit"
       :titleWidth="200"
+      v-loading="isLoading"
       :color="dataVColor"
     >
       <!--顶栏-->
@@ -52,19 +53,46 @@
         <!--左边图表-->
         <div class="left-charts">
           <dv-border-box-10 :color="dataVColor" class="left-1">
-            <EducationChart ref="LineChart" :dataVColor="dataVColor" />
+            <LineChart ref="LineChart" :dataVColor="dataVColor"></LineChart>
           </dv-border-box-10>
-          <dv-border-box-10 :color="dataVColor" class="left-1">
-            <EducationChart ref="LineChart" :dataVColor="dataVColor" />
+          <dv-border-box-10 :color="dataVColor" class="left-2">
+            <RingChart ref="LineChart" :dataVColor="dataVColor" />
           </dv-border-box-10>
         </div>
         <!--中部地图-->
         <div class="middle-map">
-          <MapChart></MapChart>
+          <!--数字盒子-->
+          <div class="middle-1">
+            <div class="num-div">
+              <p>问卷种类</p>
+
+              <AddNumber
+                class="AddNumber-com"
+                :value="30878"
+                :time="5"
+                :thousandSign="true"
+              ></AddNumber>
+              <span>份</span>
+            </div>
+            <div class="num-div">
+              <p>收集总数</p>
+              <AddNumber
+                class="AddNumber-com"
+                :value="30"
+                :time="5"
+                :thousandSign="true"
+              ></AddNumber>
+              <span>份</span>
+            </div>
+          </div>
+          <!--地图盒子-->
+          <dv-border-box-1 :color="dataVColor" class="middle-2">
+            <MapChart></MapChart>
+          </dv-border-box-1>
         </div>
         <!--右边图表-->
         <div class="right-charts">
-          <dv-border-box-10 :color="dataVColor" class="right-2">
+          <dv-border-box-10 :color="dataVColor" class="right-1">
             <EducationChart ref="LineChart" :dataVColor="dataVColor" />
           </dv-border-box-10>
           <dv-border-box-10 :color="dataVColor" class="right-2">
@@ -80,12 +108,23 @@
 import EducationChart from "../components/EducationChart.vue";
 import AgeChart from "../components/AgeChart.vue";
 import MapChart from "../components/MapChart.vue";
+import AddNumber from "../components/AddNumber.vue";
+import RingChart from "../components/RingChart.vue";
+import LineChart from "../components/LineChart.vue";
 export default {
   name: "DataVisualization",
-  components: { EducationChart, AgeChart, MapChart },
+  components: {
+    EducationChart,
+    AgeChart,
+    MapChart,
+    AddNumber,
+    RingChart,
+    LineChart,
+  },
   data() {
     return {
       mobileDiv: true, //手机遮罩
+      isLoading: false, //加载状态
       iframeSrc: "./polygonBackground/demo.html", //背景路径
       dataVisualizationTit: "问卷数据看板", //标题
       dataVColor: ["#00a97a", "#5bffd2"], //dataV主题色
@@ -113,6 +152,7 @@ export default {
         label: "",
         histData: [],
       },
+      arr: [],
     };
   },
   mounted() {
@@ -187,7 +227,7 @@ iframe {
 }
 .head-div {
   width: 100vw;
-  height: 18%;
+  height: 13%;
   display: flex;
   justify-content: center;
 }
@@ -232,7 +272,7 @@ iframe {
 .body-div {
   overflow: auto;
   width: 98%;
-  height: 80%;
+  height: 84%;
   margin: auto;
   display: flex;
 }
@@ -246,13 +286,45 @@ iframe {
   margin: auto;
   width: 45vw;
   height: 100%;
-  border: #279b81 solid 2px;
 }
 .left-1,
+.left-2,
+.right-1,
 .right-2 {
   height: 48%;
   width: 100%;
   margin: 3% auto;
+}
+.middle-2 {
+  width: 100%;
+  height: 84%;
+}
+.middle-1 {
+  height: 15%;
+  display: flex;
+  justify-content: space-between;
+  color: #279b81;
+}
+.num-div {
+  margin: auto;
+  text-align: center;
+  width: 50%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+p {
+  margin: 0px;
+  font-size: 30px;
+}
+span {
+  font-size: 20px;
+  font-weight: 900;
+}
+.AddNumber-com {
+  font-size: 40px;
+  font-weight: 900;
+  color: #fff;
 }
 </style>
 <style scoped>

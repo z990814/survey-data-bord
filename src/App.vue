@@ -1,10 +1,12 @@
 <template>
   <div id="app">
+    <!-- <LineChart></LineChart> -->
     <DataVisualization></DataVisualization>
   </div>
 </template>
 <script>
 import DataVisualization from "./views/DataVisualization.vue";
+// import LineChart from "./components/LineChart.vue";
 export default {
   components: { DataVisualization },
 };

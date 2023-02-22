@@ -9,8 +9,70 @@
 import * as echarts from "echarts";
 import { autoToolTip } from "@/utils/echartsAutoTooltip.js";
 export default {
+  name: "",
+  components: {},
+  props: {
+    dataVColor: {
+      type: Array,
+      default: [],
+    },
+  },
   data() {
-    return {};
+    return {
+      AgeChartDiv: "",
+    };
+  },
+  methods: {
+    echartsInit() {
+      this.AgeChartDiv = echarts.init(document.getElementById("AgeChartDiv"));
+      let option = {
+        title: {
+          text: "年龄分布",
+          textAlign: "auto",
+          left: "center",
+          textStyle: {
+            color: "#fff",
+          },
+        },
+        tooltip: {},
+        xAxis: {
+          data: ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"],
+          type: "category",
+          axisLabel: {
+            rotate: -45, // 旋转30度，不然横坐标显示不完全
+            show: true, //这行代码控制着坐标轴x轴的文字是否显示
+            color: "#fff",
+          },
+        },
+        yAxis: {
+          type: "value",
+          axisLabel: {
+            color: "#fff",
+          },
+        },
+        // 确诊数量
+        series: [
+          {
+            name: "总确诊数量",
+            type: "bar",
+            data: [120, 200, 150, 80, 70, 110, 130],
+            color: this.dataVColor,
+          },
+        ],
+      };
+      this.AgeChartDiv.setOption(option);
+      autoToolTip(this.AgeChartDiv, option, {
+        interval: 2000, // 轮播间隔时间 默认2s
+        loopSeries: false, // 是否循环轮播所有序列
+        seriesIndex: 0, // 第1个被轮播的序列下标
+      });
+    },
+  },
+  mounted() {
+    this.echartsInit();
+    window.addEventListener("resize", () => {
+      this.AgeChartDiv.resize();
+    });
   },
 };
 </script>
