@@ -3,8 +3,8 @@
   <div class="dataVisualization-div">
     <div class="isMobile-div" v-show="mobileDiv"></div>
     <!--canvas背景-->
-    <iframe :src="iframeSrc" />
-    <dv-border-box-11
+    <!-- <iframe :src="iframeSrc" /> -->
+    <dv-border-box-10
       class="dataVisualization-con"
       :title="dataVisualizationTit"
       :titleWidth="200"
@@ -24,10 +24,11 @@
         <div class="head-tit">
           <dv-decoration-5 class="dv-tit-top" :color="dataVColor" />
 
-          <!-- <el-select
+          <el-select
             v-model="currentProjectValue"
             class="dv-tit-name"
             :popper-append-to-body="false"
+            @change="changeProject"
           >
             <el-option
               v-for="item in projectPtions"
@@ -36,7 +37,7 @@
               :value="item.value"
             >
             </el-option>
-          </el-select> -->
+          </el-select>
         </div>
         <div class="head-right">
           <div class="flex">
@@ -53,7 +54,10 @@
         <!--左边图表-->
         <div class="left-charts">
           <dv-border-box-10 :color="dataVColor" class="left-1">
-            <LineChart ref="LineChart" :dataVColor="dataVColor"></LineChart>
+            <CategoryChart
+              ref="LineChart"
+              :dataVColor="dataVColor"
+            ></CategoryChart>
           </dv-border-box-10>
           <dv-border-box-10 :color="dataVColor" class="left-2">
             <RingChart ref="LineChart" :dataVColor="dataVColor" />
@@ -68,7 +72,7 @@
 
               <AddNumber
                 class="AddNumber-com"
-                :value="30878"
+                :value="9"
                 :time="5"
                 :thousandSign="true"
               ></AddNumber>
@@ -78,7 +82,7 @@
               <p>收集总数</p>
               <AddNumber
                 class="AddNumber-com"
-                :value="30"
+                :value="3080"
                 :time="5"
                 :thousandSign="true"
               ></AddNumber>
@@ -100,7 +104,7 @@
           </dv-border-box-10>
         </div>
       </div>
-    </dv-border-box-11>
+    </dv-border-box-10>
   </div>
 </template>
 
@@ -111,6 +115,7 @@ import MapChart from "../components/MapChart.vue";
 import AddNumber from "../components/AddNumber.vue";
 import RingChart from "../components/RingChart.vue";
 import LineChart from "../components/LineChart.vue";
+import CategoryChart from "../components/CategoryChart.vue";
 export default {
   name: "DataVisualization",
   components: {
@@ -120,6 +125,7 @@ export default {
     AddNumber,
     RingChart,
     LineChart,
+    CategoryChart,
   },
   data() {
     return {
@@ -144,15 +150,29 @@ export default {
           value: "3",
           label: "同理心",
         },
+        {
+          value: "4",
+          label: "情绪商数",
+        },
+        {
+          value: "5",
+          label: "文化商数",
+        },
+        {
+          value: "6",
+          label: "组织文化逆商",
+        },
+        {
+          value: "7",
+          label: "信任自我测评",
+        },
       ],
       currentProjectValue: "", //选中项目的value
       //选中的项目
       currentProject: {
         value: "",
         label: "",
-        histData: [],
       },
-      arr: [],
     };
   },
   mounted() {
@@ -168,12 +188,28 @@ export default {
         alert("当前项目暂未适配移动端，请在pc端打开！");
       } else {
         this.mobileDiv = false; //关闭手机端遮罩
-        // this.getProjectMsg(); //获取项目数据
+        this.getProjectMsg(); //获取项目数据
         this.nowDate(); //获取时间
         this.interval = setInterval(() => {
           this.nowDate();
         }, 1000);
       }
+    },
+    //获取项目数据
+    getProjectMsg() {
+      this.isLoading = true;
+      setTimeout(() => {
+        this.currentProject = this.projectPtions[0]; //默认选中第一个
+        this.currentProjectValue = this.projectPtions[0].value;
+        this.isLoading = false;
+      }, 1500);
+    },
+    //切换项目
+    changeProject(item) {
+      this.isLoading = true;
+      this.currentProject = this.projectPtions.filter((p) => {
+        return p.value == item;
+      })[0];
     },
     //当前时间
     nowDate() {
@@ -206,12 +242,12 @@ export default {
 }
 .dataVisualization-div {
   user-select: none;
-  height: 100vh;
+  height: 95vh;
   width: 100vw;
   color: #fff;
   background-color: #fff;
 }
-iframe {
+/* iframe {
   position: absolute;
   top: 0;
   right: 0;
@@ -219,15 +255,15 @@ iframe {
   border: 0px;
   height: 100%;
   width: 100%;
-}
+} */
 .dataVisualization-con {
-  height: 100vh;
+  height: 95vh;
   width: 100vw;
   font-weight: 900;
 }
 .head-div {
   width: 100vw;
-  height: 13%;
+  height: 15%;
   display: flex;
   justify-content: center;
 }
@@ -300,7 +336,7 @@ iframe {
   height: 84%;
 }
 .middle-1 {
-  height: 15%;
+  height: 10%;
   display: flex;
   justify-content: space-between;
   color: #279b81;

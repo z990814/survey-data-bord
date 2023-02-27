@@ -36,7 +36,16 @@ export default {
         },
         tooltip: {},
         xAxis: {
-          data: ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"],
+          data: [
+            "20岁及以下",
+            "21-25岁",
+            "26-30岁",
+            "31-35岁",
+            "36-40岁",
+            "41岁及以上",
+            "保密",
+            "未知",
+          ],
           type: "category",
           axisLabel: {
             rotate: -45, // 旋转30度，不然横坐标显示不完全
@@ -50,17 +59,29 @@ export default {
             color: "#fff",
           },
         },
-        // 确诊数量
+
         series: [
           {
-            name: "总确诊数量",
+            name: "",
             type: "bar",
-            data: [120, 200, 150, 80, 70, 110, 130],
-            color: this.dataVColor,
+            animationDuration: 3000,
+            animationEasing: "cubicInOut",
+            data: [120, 200, 150, 80, 70, 110, 130, 5],
+            color: new echarts.graphic.LinearGradient(0, 0, 1, 1, [
+              {
+                offset: 1,
+                color: this.dataVColor[0],
+              },
+              {
+                offset: 0,
+                color: "#ffffff",
+              },
+            ]),
           },
         ],
       };
       this.AgeChartDiv.setOption(option);
+      // 自动轮播
       autoToolTip(this.AgeChartDiv, option, {
         interval: 2000, // 轮播间隔时间 默认2s
         loopSeries: false, // 是否循环轮播所有序列

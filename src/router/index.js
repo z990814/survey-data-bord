@@ -1,10 +1,26 @@
 import Vue from 'vue'
+import DataVisualization from '../views/DataVisualization.vue'
+import AnotherView from '../views/AnotherView.vue'
 import VueRouter from 'vue-router'
 
 
 Vue.use(VueRouter)
 
 const routes = [
+  {
+    path: '/',
+    //redirect 是重新定向
+    redirect: '/home'
+  },
+  {
+    name: 'home',
+    path: '/home',
+    component: DataVisualization,
+  }, {
+    name: 'another',
+    path: '/another',
+    component: AnotherView,
+  }
   // {
   //   path: '/',
   //   name: 'home',

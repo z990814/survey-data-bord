@@ -38,7 +38,15 @@ export default {
         },
         tooltip: {},
         xAxis: {
-          data: ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"],
+          data: [
+            "小学及以下",
+            "初中",
+            "高中/职高",
+            "大专",
+            "本科",
+            "硕士及以上",
+            "未知",
+          ],
           type: "category",
           axisLabel: {
             rotate: -45, // 旋转30度，不然横坐标显示不完全
@@ -55,14 +63,17 @@ export default {
         // 确诊数量
         series: [
           {
-            name: "总确诊数量",
+            name: "",
             type: "bar",
+            animationDuration: 3000,
+            animationEasing: "cubicInOut",
             data: [120, 200, 150, 80, 70, 110, 130],
             color: this.dataVColor,
           },
         ],
       };
       this.histogramChartDiv.setOption(option);
+      // 自动轮播
       autoToolTip(this.histogramChartDiv, option, {
         interval: 2000, // 轮播间隔时间 默认2s
         loopSeries: false, // 是否循环轮播所有序列
