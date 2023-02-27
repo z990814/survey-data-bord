@@ -14,7 +14,7 @@
 export default {};
 </script>
 
-<style>
+<style scoped>
 .header {
   display: flex;
   height: 5vh;
@@ -29,7 +29,7 @@ p {
   line-height: 5vh;
   color: #fff;
   vertical-align: center;
-  font-size: 20px;
+  font-size: 25px;
   font-weight: 900;
   padding-left: 20px;
 }
