@@ -91,7 +91,7 @@
           </div>
           <!--地图盒子-->
           <dv-border-box-1 :color="dataVColor" class="middle-2">
-            <MapChart></MapChart>
+            <MapChart class="map-div"></MapChart>
           </dv-border-box-1>
         </div>
         <!--右边图表-->
@@ -333,7 +333,8 @@ export default {
 }
 .middle-2 {
   width: 100%;
-  height: 84%;
+  height: 87%;
+  margin-top: 2vh;
 }
 .middle-1 {
   height: 10%;
@@ -349,6 +350,7 @@ export default {
   text-overflow: ellipsis;
   white-space: nowrap;
 }
+
 p {
   margin: 0px;
   font-size: 30px;
@@ -361,6 +363,11 @@ span {
   font-size: 40px;
   font-weight: 900;
   color: #fff;
+}
+.map-div {
+  width: 80%;
+  height: 90%;
+  margin: 0 auto;
 }
 </style>
 <style scoped>
