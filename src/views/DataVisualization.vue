@@ -6,9 +6,9 @@
     <!-- <iframe :src="iframeSrc" /> -->
     <dv-border-box-10
       class="dataVisualization-con"
-      :title="dataVisualizationTit"
       :titleWidth="200"
       v-loading="isLoading"
+      element-loading-text="数据加载中..."
       :color="dataVColor"
     >
       <!--顶栏-->
@@ -55,12 +55,12 @@
         <div class="left-charts">
           <dv-border-box-10 :color="dataVColor" class="left-1">
             <CategoryChart
-              ref="LineChart"
+              ref="CategoryChart"
               :dataVColor="dataVColor"
             ></CategoryChart>
           </dv-border-box-10>
           <dv-border-box-10 :color="dataVColor" class="left-2">
-            <RingChart ref="LineChart" :dataVColor="dataVColor" />
+            <RingChart ref="RingChart" :dataVColor="dataVColor" />
           </dv-border-box-10>
         </div>
         <!--中部地图-->
@@ -72,7 +72,7 @@
 
               <AddNumber
                 class="AddNumber-com"
-                :value="9"
+                :value="currentProject.msg.surveys"
                 :time="5"
                 :thousandSign="true"
               ></AddNumber>
@@ -82,7 +82,7 @@
               <p>收集总数</p>
               <AddNumber
                 class="AddNumber-com"
-                :value="3080"
+                :value="currentProject.msg.total"
                 :time="5"
                 :thousandSign="true"
               ></AddNumber>
@@ -97,10 +97,10 @@
         <!--右边图表-->
         <div class="right-charts">
           <dv-border-box-10 :color="dataVColor" class="right-1">
-            <EducationChart ref="LineChart" :dataVColor="dataVColor" />
+            <EducationChart ref="EducationChart" :dataVColor="dataVColor" />
           </dv-border-box-10>
           <dv-border-box-10 :color="dataVColor" class="right-2">
-            <AgeChart ref="LineChart" :dataVColor="dataVColor" />
+            <AgeChart ref="AgeChart" :dataVColor="dataVColor" />
           </dv-border-box-10>
         </div>
       </div>
@@ -132,7 +132,7 @@ export default {
       mobileDiv: true, //手机遮罩
       isLoading: false, //加载状态
       iframeSrc: "./polygonBackground/demo.html", //背景路径
-      dataVisualizationTit: "问卷数据看板", //标题
+      //dataVisualizationTit: "问卷数据看板", //标题
       dataVColor: ["#00a97a", "#5bffd2"], //dataV主题色
       time: "", //日期
       interval: "", //计时器
@@ -141,30 +141,338 @@ export default {
         {
           value: "1",
           label: "企业文化价值",
+          msg: {
+            surveys: 9, //问卷种类
+            total: 20800, //收集总数
+          },
+          CategoryChartData: {
+            yAxisData: [
+              "企业文化价值",
+              "情商",
+              "恒毅力",
+              "逆商",
+              "文化逆商",
+              "文化商数",
+              "同理心",
+              "信任测评",
+            ],
+            seriesData: [37.62, 17.08, 16.52, 10.01, 7.4, 4.88, 2.32, 0.94],
+          },
+          //CategoryChart数据
+          RingChartData: [365, 310, 234, 135], //环形图数据
+          AgeChartData: {
+            xAxisData: [
+              "20岁及以下",
+              "21-25岁",
+              "26-30岁",
+              "31-35岁",
+              "36-40岁",
+              "41岁及以上",
+              "保密",
+              "未知",
+            ],
+            seriesData: [120, 200, 150, 80, 70, 110, 130, 5],
+          }, //年龄分布图数据
+          EducationChartData: {
+            xAxisData: [
+              "小学及以下",
+              "初中",
+              "高中/职高",
+              "大专",
+              "本科",
+              "硕士及以上",
+              "未知",
+            ],
+            seriesData: [120, 200, 150, 80, 70, 110, 130, 5],
+          }, //学历图数据
         },
         {
           value: "2",
           label: "恒毅力",
+          msg: {
+            surveys: 9, //问卷种类
+            total: 20800, //收集总数
+          },
+          CategoryChartData: {
+            yAxisData: [
+              "企业文化价值",
+              "情商",
+              "恒毅力",
+              "逆商",
+              "文化逆商",
+              "文化商数",
+              "同理心",
+              "信任测评",
+            ],
+            seriesData: [37.62, 17.08, 16.52, 10.01, 7.4, 4.88, 2.32, 0.94],
+          },
+          //CategoryChart数据
+          RingChartData: [365, 310, 234, 135], //环形图数据
+          AgeChartData: {
+            xAxisData: [
+              "20岁及以下",
+              "21-25岁",
+              "26-30岁",
+              "31-35岁",
+              "36-40岁",
+              "41岁及以上",
+              "保密",
+              "未知",
+            ],
+            seriesData: [120, 200, 150, 80, 70, 110, 130, 5],
+          }, //年龄分布图数据
+          EducationChartData: {
+            xAxisData: [
+              "小学及以下",
+              "初中",
+              "高中/职高",
+              "大专",
+              "本科",
+              "硕士及以上",
+              "未知",
+            ],
+            seriesData: [120, 200, 150, 80, 70, 110, 130, 5],
+          }, //学历图数据
         },
         {
           value: "3",
           label: "同理心",
+          msg: {
+            surveys: 9, //问卷种类
+            total: 20800, //收集总数
+          },
+          CategoryChartData: {
+            yAxisData: [
+              "企业文化价值",
+              "情商",
+              "恒毅力",
+              "逆商",
+              "文化逆商",
+              "文化商数",
+              "同理心",
+              "信任测评",
+            ],
+            seriesData: [37.62, 17.08, 16.52, 10.01, 7.4, 4.88, 2.32, 0.94],
+          },
+          //CategoryChart数据
+          RingChartData: [365, 310, 234, 135], //环形图数据
+          AgeChartData: {
+            xAxisData: [
+              "20岁及以下",
+              "21-25岁",
+              "26-30岁",
+              "31-35岁",
+              "36-40岁",
+              "41岁及以上",
+              "保密",
+              "未知",
+            ],
+            seriesData: [120, 200, 150, 80, 70, 110, 130, 5],
+          }, //年龄分布图数据
+          EducationChartData: {
+            xAxisData: [
+              "小学及以下",
+              "初中",
+              "高中/职高",
+              "大专",
+              "本科",
+              "硕士及以上",
+              "未知",
+            ],
+            seriesData: [120, 200, 150, 80, 70, 110, 130, 5],
+          }, //学历图数据
         },
         {
           value: "4",
           label: "情绪商数",
+          msg: {
+            surveys: 9, //问卷种类
+            total: 20800, //收集总数
+          },
+          CategoryChartData: {
+            yAxisData: [
+              "企业文化价值",
+              "情商",
+              "恒毅力",
+              "逆商",
+              "文化逆商",
+              "文化商数",
+              "同理心",
+              "信任测评",
+            ],
+            seriesData: [37.62, 17.08, 16.52, 10.01, 7.4, 4.88, 2.32, 0.94],
+          },
+          //CategoryChart数据
+          RingChartData: [365, 310, 234, 135], //环形图数据
+          AgeChartData: {
+            xAxisData: [
+              "20岁及以下",
+              "21-25岁",
+              "26-30岁",
+              "31-35岁",
+              "36-40岁",
+              "41岁及以上",
+              "保密",
+              "未知",
+            ],
+            seriesData: [120, 200, 150, 80, 70, 110, 130, 5],
+          }, //年龄分布图数据
+          EducationChartData: {
+            xAxisData: [
+              "小学及以下",
+              "初中",
+              "高中/职高",
+              "大专",
+              "本科",
+              "硕士及以上",
+              "未知",
+            ],
+            seriesData: [120, 200, 150, 80, 70, 110, 130, 5],
+          }, //学历图数据
         },
         {
           value: "5",
           label: "文化商数",
+          msg: {
+            surveys: 9, //问卷种类
+            total: 20800, //收集总数
+          },
+          CategoryChartData: {
+            yAxisData: [
+              "企业文化价值",
+              "情商",
+              "恒毅力",
+              "逆商",
+              "文化逆商",
+              "文化商数",
+              "同理心",
+              "信任测评",
+            ],
+            seriesData: [37.62, 17.08, 16.52, 10.01, 7.4, 4.88, 2.32, 0.94],
+          },
+          //CategoryChart数据
+          RingChartData: [365, 310, 234, 135], //环形图数据
+          AgeChartData: {
+            xAxisData: [
+              "20岁及以下",
+              "21-25岁",
+              "26-30岁",
+              "31-35岁",
+              "36-40岁",
+              "41岁及以上",
+              "保密",
+              "未知",
+            ],
+            seriesData: [120, 200, 150, 80, 70, 110, 130, 5],
+          }, //年龄分布图数据
+          EducationChartData: {
+            xAxisData: [
+              "小学及以下",
+              "初中",
+              "高中/职高",
+              "大专",
+              "本科",
+              "硕士及以上",
+              "未知",
+            ],
+            seriesData: [120, 200, 150, 80, 70, 110, 130, 5],
+          }, //学历图数据
         },
         {
           value: "6",
           label: "组织文化逆商",
+          msg: {
+            surveys: 9, //问卷种类
+            total: 20800, //收集总数
+          },
+          CategoryChartData: {
+            yAxisData: [
+              "企业文化价值",
+              "情商",
+              "恒毅力",
+              "逆商",
+              "文化逆商",
+              "文化商数",
+              "同理心",
+              "信任测评",
+            ],
+            seriesData: [37.62, 17.08, 16.52, 10.01, 7.4, 4.88, 2.32, 0.94],
+          },
+          //CategoryChart数据
+          RingChartData: [365, 310, 234, 135], //环形图数据
+          AgeChartData: {
+            xAxisData: [
+              "20岁及以下",
+              "21-25岁",
+              "26-30岁",
+              "31-35岁",
+              "36-40岁",
+              "41岁及以上",
+              "保密",
+              "未知",
+            ],
+            seriesData: [120, 200, 150, 80, 70, 110, 130, 5],
+          }, //年龄分布图数据
+          EducationChartData: {
+            xAxisData: [
+              "小学及以下",
+              "初中",
+              "高中/职高",
+              "大专",
+              "本科",
+              "硕士及以上",
+              "未知",
+            ],
+            seriesData: [120, 200, 150, 80, 70, 110, 130, 5],
+          }, //学历图数据
         },
         {
           value: "7",
           label: "信任自我测评",
+          msg: {
+            surveys: 9, //问卷种类
+            total: 20800, //收集总数
+          },
+          CategoryChartData: {
+            yAxisData: [
+              "企业文化价值",
+              "情商",
+              "恒毅力",
+              "逆商",
+              "文化逆商",
+              "文化商数",
+              "同理心",
+              "信任测评",
+            ],
+            seriesData: [37.62, 17.08, 16.52, 10.01, 7.4, 4.88, 2.32, 0.94],
+          },
+          //CategoryChart数据
+          RingChartData: [365, 310, 234, 135], //环形图数据
+          AgeChartData: {
+            xAxisData: [
+              "20岁及以下",
+              "21-25岁",
+              "26-30岁",
+              "31-35岁",
+              "36-40岁",
+              "41岁及以上",
+              "保密",
+              "未知",
+            ],
+            seriesData: [120, 200, 150, 80, 70, 110, 130, 5],
+          }, //年龄分布图数据
+          EducationChartData: {
+            xAxisData: [
+              "小学及以下",
+              "初中",
+              "高中/职高",
+              "大专",
+              "本科",
+              "硕士及以上",
+              "未知",
+            ],
+            seriesData: [120, 200, 150, 80, 70, 110, 130, 5],
+          }, //学历图数据
         },
       ],
       currentProjectValue: "", //选中项目的value
@@ -172,6 +480,14 @@ export default {
       currentProject: {
         value: "",
         label: "",
+        msg: {
+          surveys: 0,
+          total: 0,
+        },
+        CategoryChartData: [],
+        RingChartData: [],
+        AgeChartData: [],
+        EducationChartData: [],
       },
     };
   },
@@ -201,15 +517,36 @@ export default {
       setTimeout(() => {
         this.currentProject = this.projectPtions[0]; //默认选中第一个
         this.currentProjectValue = this.projectPtions[0].value;
+        this.createCharts(); //创建图表
+        window.addEventListener("resize", this.onWindowResize, false); //监听窗口尺寸变化
         this.isLoading = false;
       }, 1500);
+    },
+    //监听窗口尺寸变化
+    onWindowResize() {
+      this.createCharts(); //重绘图表
     },
     //切换项目
     changeProject(item) {
       this.isLoading = true;
-      this.currentProject = this.projectPtions.filter((p) => {
-        return p.value == item;
-      })[0];
+      setTimeout(() => {
+        this.currentProject = this.projectPtions.filter((p) => {
+          return p.value == item;
+        })[0];
+        this.createCharts(); //创建图表
+        this.isLoading = false;
+      }, 1500);
+    },
+    //创建图表
+    createCharts() {
+      this.$refs.CategoryChart.createCategoryChart(
+        this.currentProject.CategoryChartData
+      );
+      this.$refs.RingChart.createRingChart(this.currentProject.RingChartData);
+      this.$refs.EducationChart.createEducationChart(
+        this.currentProject.EducationChartData
+      );
+      this.$refs.AgeChart.createAgeChart(this.currentProject.AgeChartData);
     },
     //当前时间
     nowDate() {
